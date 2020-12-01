@@ -1,20 +1,142 @@
 # OOP with JS
 
-## Creating objects
+<!--
+TODO: Intro
+-->
 
-**Literal notation**
+## Creating or initializing objects
+
+There are several ways to create or initialize an object.
+
+### Literal notation
 
 ```js
-const myObj = {};
+const myObj = {
+  name: 'Peter'
+};
+
+console.log(myObj);
+// { name: 'Peter' }
 ```
 
-**Constructor Function**
+We can use `literal notation` to initialize an object and the `dot notation` to add properties.
+
+```js
+// literal notation
+const myObj = {};
+
+// dot notation
+myObj.name = 'Peter';
+
+console.log(myObj);
+// { name: 'Peter' }
+```
+
+
+### Object() constructor
 
 ```js
 const myObj = new Object();
+
+myObj.name = 'Peter';
+
+console.log(myObj);
+// { name: 'Peter' }
 ```
 
+### Object.create()
+We pass an existing object as the prototype of the new object **or** `null`
+
+```js
+const myObj = {};
+myObj.name = 'Peter';
+
+const mySubObj = Object.create(myObj);
+
+console.log(mySubObj);
+// {}
+
+console.log(mySubObj.name);
+// Peter
+```
+
+... and we can check if `myObj` is the prototype of `mySubObj`
+
+```js
+console.log(Object.getPrototypeOf(mySubObj) === myObj)
+// true
+```
+
+*Note:* Later we will see what prototype means. 
+
 *Literal notation* is faster and less verbose and it should be your first option.
+
+---
+
+Now, let's say that you need to create several objects with "the same shape" or properties. 
+
+You could do...
+```js
+const peter = {
+  name: 'Peter',
+  greeting() {
+    console.log(`Hello, I'm ${this.name}`)
+  }
+}
+
+const wendy = {
+  name: 'Wendy',
+  greeting() {
+    console.log(`Hello, I'm ${this.name}`)
+  }
+}
+
+const tinkerbell = {
+  name: 'Tinkerbell',
+  greeting() {
+    console.log(`Hello, I'm ${this.name}`)
+  }
+}
+
+console.log(peter);
+// { name: 'Peter', greeting: [Function: greeting] }
+
+peter.greeting();
+// Hello, I'm Peter
+```
+
+... or, use a `regular function` to construct your objects.
+
+```js
+function createCharacter(name) {
+  const newCharacter = {};
+  newCharacter.name = name;
+  newCharacter.greeting = function greeting() {
+    console.log(`Hello, I'm ${this.name}`);
+  }
+  return newCharacter;
+}
+
+const peter = createCharacter('Peter');
+
+const wendy = createCharacter('Wendy');
+
+const tinkerbell = createCharacter('Tinkerbell');
+
+console.log(peter);
+// { name: 'Peter', greeting: [Function: greeting] }
+
+peter.greeting();
+// Hello, I'm Peter
+```
+
+
+
+#### Notes:
+1. In `es2015` implementations you will see `greeting: function greeting() {}` instead of `greeting() {}`. Check the transpiled code into `es2015` in [babel](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&spec=false&loose=false&code_lz=MYewdgzgLgBADgUyggTjAvDA3gKBjMAQwFsEAuGAcgAUlVKAaPGAcxQSQEswWAKASmzN8oSCAA2CAHTiQfAAYAJBONkMYASUrEYAEixQAFpwhSipAL7z-zCzgtA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Ces2015&prettier=false&targets=&version=7.12.9&externalPlugins=)
+
+
+<!-- Until here -->
 
 **Sample object**
 
