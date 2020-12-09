@@ -130,10 +130,78 @@ peter.greeting();
 // Hello, I'm Peter
 ```
 
+*Note*: In `pre es2015` implementations you will see `greeting: function greeting() {}` instead of `greeting() {}`. Check the transpiled code into `pre es2015` in [babel](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&spec=false&loose=false&code_lz=MYewdgzgLgBADgUyggTjAvDA3gKBjMAQwFsEAuGAcgAUlVKAaPGAcxQSQEswWAKASmzN8oSCAA2CAHTiQfAAYAJBONkMYASUrEYAEixQAFpwhSipAL7z-zCzgtA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Ces2015&prettier=false&targets=&version=7.12.9&externalPlugins=)
+
+This is better (aka, cleaner/DRYer) than the previous snippet, but... We are still creating the same function and adding it as a method on the object.
+
+And here is where the "OOP" or JS Prototypal Inheritance shines.
+
+We are going to *abstract* the common logic into a `new object` and keep our `function` to initialize the characters objects. It sounds fairly simple, no? 
+But, how are we going to let each character object know where to find the abstracted functionality and link it at runtime to the "caller object"? Voila, we will create the characters objects with the functionality object as their prototypes using `Object.create(objectPrototype)` instead of an `object literal`.
+
+```js
+const characterFunctionality = {
+  greeting: function greeting() {
+    console.log(`Hello, I'm ${this.name}`);
+  }
+};
 
 
-#### Notes:
-1. In `es2015` implementations you will see `greeting: function greeting() {}` instead of `greeting() {}`. Check the transpiled code into `es2015` in [babel](https://babeljs.io/repl#?browsers=defaults%2C%20not%20ie%2011%2C%20not%20ie_mob%2011&build=&builtIns=false&spec=false&loose=false&code_lz=MYewdgzgLgBADgUyggTjAvDA3gKBjMAQwFsEAuGAcgAUlVKAaPGAcxQSQEswWAKASmzN8oSCAA2CAHTiQfAAYAJBONkMYASUrEYAEixQAFpwhSipAL7z-zCzgtA&debug=false&forceAllTransforms=false&shippedProposals=false&circleciRepo=&evaluate=false&fileSize=false&timeTravel=false&sourceType=module&lineWrap=true&presets=env%2Ces2015&prettier=false&targets=&version=7.12.9&externalPlugins=)
+function createCharacter(name) {
+  const newCharacter = Object.create(characterFunctionality)
+  newCharacter.name = name;
+  return newCharacter;
+}
+
+const peter = createCharacter('Peter');
+
+const wendy = createCharacter('Wendy');
+
+const tinkerbell = createCharacter('Tinkerbell');
+
+console.log(peter);
+// { name: 'Peter', greeting: [Function: greeting] }
+
+peter.greeting();
+// Hello, I'm Peter
+```
+
+**What is going on...?**
+At a high level (we will see this in more detail) when we call the method `greeting()` on the object `peter`, the JS interpreter tries to find it on the own object (peter), but, since that method doesn't exist, it will go UP on the prototype chain trying to find that method in the next prototype. 
+
+When we created our objects, we linked them to `characterFunctionality`, and, that link resides in a hidden property: `__proto__`.
+
+
+<!-- TODO:
+Here, we need to make another stop.
+After `es2015` specification, we should avoid the use of `__proto__`
+
+-->
+
+
+Until now, we have being using `regular functions` to create or initialize our objects. However, we can add the usage of the `new keyword` to simplify some of the initialization process deferring to it (the `new keyword`, allow me the alliteration) the workload.
+
+Before seeing an example, let's state what `new` is going to do for us:
+
+1. Creates a blank object
+2. Sets the prototype bind
+3. Sets this as the newly object: {}
+4. Returns
+
+```js
+function CreateCharacter(name) {
+  this.name = name;
+}
+
+const peter = new CreateCharacter('Peter');
+
+console.log(peter);
+// CreateCharacter { name: 'Peter' }
+```
+
+
+
+
 
 
 <!-- Until here -->
