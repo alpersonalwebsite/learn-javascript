@@ -1,15 +1,78 @@
 # ES6 or ES2015
 
-<!-- TODO: New things. Quick check. -->
+<!-- 
+TODO: New things. Quick check. 
+-->
 
 
-**Declaring variables with let and const**
+<!-- **Declaring variables with let and const**
 
-* For variables that never change use `const` (abbr. constant)
-* For the rest, use `let`. Avoid using var.
+* For variables that never change use `const` (abbr. *constant*)
+* For the rest, use `let`
 
-Why should we use `let` instead of `var`...?
-Because `let` is block scoped while var is function scoped.
+*Note*: There is a general consensus to avoid `var`. Personally, I think `var` has its own intrinsic value as we will see. Yet, if you are working in a new project (aka, post es2015) or with other developers, my advice is to use `let` as a well-accepted convention.
+
+
+What's the "main" difference between `let` and `var`...?
+`Let` is block scoped while `var` is hoisted, which means that all the declarations are going to be "lifted to" the top of the scope, either a function or the global scope. 
+
+Clear enough...? Maybe not! 
+This is an example of how JS hoist variables declared with `var`
+
+```js
+name = 'peter';
+
+var name;
+
+console.log(name);
+```
+
+What is going on...? When the interpreter finds the code...
+
+1. Creates in the global memory a namespace with the value `name`
+2. Assigns `peter` as the value of `name`
+3. Looks for the method `.log()` in the object `console`
+4. Creates a new `execution context`
+5. Creates in the local memory of the execution context a namespace with the value `name`
+6. Assigns `peter` as the value of `name`
+7. Logs into the console
+
+Yes... All that and more! :)
+
+But the important thing (at least for the moment), is how JS allows you to declare your variable after you initialize it ("just to take care of it later")
+
+Now, if you try the same example replacing `var` with `let` you will receive the following error: `ReferenceError: Cannot access 'name' before initialization`
+
+You have a basic understanding of `hosting`, however, you could be asking yourself... What about `global/function scope` vs. `block scope`.
+
+Example: global and function scope
+
+```js
+var globalVariable = 1;
+
+function someFunction() {
+  for (var localVariable = 0; localVariable < 5; localVariable++) {
+    // some logic
+  }
+  console.log(`localVariable value is ${localVariable}`);
+}
+
+someFunction();
+
+console.log(`globalVariable value is ${globalVariable}`);
+```
+
+Output:
+
+```
+localVariable value is 5
+globalVariable value is 1
+```
+
+/////// Hasta aca -->
+
+
+
 
 You can see the difference in the following example:
 
