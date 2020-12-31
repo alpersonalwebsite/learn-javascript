@@ -73,7 +73,7 @@ globalVariable value is 1
 
 
 
-
+<!--
 You can see the difference in the following example:
 
 ```javascript
@@ -104,7 +104,113 @@ We can access to `varVariable` outside the for statement/block, however, we cann
 
 ---
 
-**Arrow function**
+-->
+
+## let and const
+<!-- Even when I'm addressing this in the intro, maybe I should move it here or add something here -->
+
+## Template literals
+(Also called in early stages "template strings")
+
+Template literals are string literals allowing embedded expressions. 
+You can use multi-line strings and string interpolation features with them.
+[Template literals](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Template_literals)
+
+Before, `template literals` we concatenate strings using the `+` operator or the `concat()` string method.
+
+```js
+const str1 = 'Hello';
+const str2 = 'Peter';
+
+const result1 = str1 + ' ' + str2;
+
+const result2 = str1.concat(' ', str2);
+
+
+console.log(result1);
+console.log(result2);
+
+// Hello Peter
+// Hello Peter
+```
+
+Things were even more verbose when we wanted to have multi-lines strings.
+
+```js
+const str1 = 'Hello';
+const str2 = 'Peter';
+
+const result1 = str1 + '\n' + str2;
+
+console.log(result1)
+// Hello
+// Peter
+```
+
+Now, with `template literals` we can easily do string interpolations using the backticks ``. 
+
+```js
+const str1 = 'Hello';
+const str2 = 'Peter';
+
+const result = `${str1}, 
+my name is 
+${str2}`;
+
+console.log(result);
+
+// Hello, 
+// my name is 
+// Peter
+```
+
+Technically, you can do more than referencing a variable inside these `embedded expressions`, however, it is a good advise to abstract the logic to a function and invoke it.
+
+```js
+const str1 = 'Hello';
+const str2 = 'Peter';
+
+const isPeter = (name) => {
+  if (name.toLowerCase() === 'peter') {
+    return `If you want more information about ${name}...`
+  }
+  return `Keep searching!`
+}
+
+
+const result = `${str1}.
+Are you lokking for ${str2}?
+${isPeter(str2)}`;
+
+console.log(result);
+
+// Hello.
+// Are you lokking for Peter?
+// If you want more information about Peter...
+```
+
+## Destructuring assignment
+
+The destructuring assignment syntax is a JavaScript expression that makes it possible to unpack values from arrays, or properties from objects, into distinct variables.
+[Destructuring assignment](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Operators/Destructuring_assignment)
+
+```js
+const arr = [0, 1, 2, 3, 4, 5, 6];
+
+const [a, b, c, ...rest] = arr;
+
+console.log(`${a}
+${b}
+${c}
+${rest}`)
+
+// 0
+// 1
+// 2
+// 3,4,5,6
+```
+
+## Arrow function
 
 *MDN Web Developer* defines it as "a syntactically compact alternative to a regular function expression, although without its own bindings to the this, arguments, super, or new.target keywords. Arrow function expressions are ill suited as methods, and they cannot be used as constructors".
 [Arrow functions](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions)
@@ -216,7 +322,7 @@ Human {} // using regular function expression
 
 ---
 
-**Classes**
+## Classes
 We can see Classes as the blueprints of the objects created through these "special functions".
 In our first example, `Friend` (type: function) is the blueprint of `friend1` (type: object).
 
