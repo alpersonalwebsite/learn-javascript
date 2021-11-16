@@ -4,6 +4,20 @@
 
 ### Primitives or value types
 
+**Important**:
+We have `primitives` and `Primitives Objects` like String.
+
+```js
+const stringLiteral = 'string literal';
+
+const stringObjConst = new String('string object constructor');
+
+console.log(typeof stringLiteral); // string
+console.log(typeof stringObjConst); // object
+```
+
+JS wraps all primitives with their primitive objects so we can have access to methods defined in the constructor function. 
+
 * null (used when we want to indicate the absence of value. For example, if the user didn't provide his favorite hobby)
 * undefined
 * boolean
@@ -11,7 +25,7 @@
 * string
 * symbol (ES2015)
 
-TODO: Add examples.
+<!-- TODO: Add examples. -->
 
 If we don't initialize it, the default value and type of the variables will be `undefined`.
 
@@ -25,39 +39,40 @@ console.log(typeof name); // undefined
 This values are immutable. 
 For example, when we split a string we are not mutating the string in place, we are creating a new string.
 
-
 ### Reference types
 
 * object
 * function
 * array (in JavaScript dynamic, we don't set a length and a type like in other languages. Its type is object)
 
-We can see an object as the organized representation of "something".
-For example, the following object represent a `car`:
+**The main difference between primitives and reference types** is how the value is stored
 
+In `primitives`, the variable holds the value (copied by value).
 ```js
-const car = {};
-car.brand = 'Toyota';
-car.year = '1970';
-car.color = 'black';
+let person1 = 'Peter';
 
-console.log(car); // { brand: 'Toyota', year: '1970', color: 'black' }
+// Here we copy the value of person1 tyo person2
+let person2 = person1;
+
+person1 = 'Wendy';
+
+console.log(person1, person2);
+// Wendy Peter
 ```
 
-One note about `functions`
-Remember the difference between `parameters` and `arguments`
-
-In the example...
-1. color is a parameter of the function printColor()
-2. black is an argument
+In `references`, the variable holds a reference to the address (in memory) where the value is stored (copied by reference).
 
 ```js
-function printColor(color) {
-  console.log(color);
-}
+let person1 = { name: 'Peter' };
+let person2 = person1;
 
-printColor('black');
+person1.name = 'Wendy';
+
+console.log(person1, person2);
+// { name: 'Wendy' } { name: 'Wendy' }
 ```
+
+---
 
 ## Operators
 
@@ -76,7 +91,7 @@ printColor('black');
   * 6 == '6' it will convert '6' into 6 and compare
   * 1 == true will convert 1 to true and compare
 
-**Note about** `not (|)`
+**Note about** `not (!)`
 
 It will convert the value me pass into the opposite:
 
@@ -103,5 +118,5 @@ Everything else is **truthy**
 When we are using `OR`, when we find a truthy operand it returns that operand (the remaining operands are omitted)
 
 ```js
-console.log(false || 1 || 2 || 3) // 1
+console.log(false || 1 || 2 || 3); // 1
 ```
