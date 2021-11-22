@@ -351,7 +351,22 @@ console.log(names);
 // [ 'Peter', 'Paul', 'Paul' ]
 ```
 
-### Array.reduce(cb)
+### Array.reduce(cb, initialValue)
+It returns a new array
+
+```js
+const people = [
+  { name: 'Peter', age: 30 },
+  { name: 'Paul', age: 20 },
+  { name: 'Paul', age: 10 }
+];
+
+const agesSum = people.reduce((accumulator, person) => {
+  return accumulator + person.age;
+}, 0);
+
+console.log(agesSum); // 60
+```
 
 ### Array.filter(cb)
 It returns a new array with the element/s that satisfy the expression evaluation.
