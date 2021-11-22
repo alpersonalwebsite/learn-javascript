@@ -25,7 +25,7 @@ JS wraps all primitives with their primitive objects so we can have access to me
 * string
 * symbol (ES2015)
 
-<!-- TODO: Add examples. -->
+<!-- TODO: Add examples ??? -->
 
 If we don't initialize it, the default value and type of the variables will be `undefined`.
 
@@ -38,6 +38,25 @@ console.log(typeof name); // undefined
 
 This values are immutable. 
 For example, when we split a string we are not mutating the string in place, we are creating a new string.
+
+**String literal vs template literal**
+
+```js
+const variable = 'something';
+
+const stringLiteral = 'string \nliteral ' + variable;
+
+const templateLiteral = `template 
+literal ${variable}`;
+
+console.log(stringLiteral);
+// string 
+// literal something
+
+console.log(templateLiteral);
+template 
+// literal something
+```
 
 ### Reference types
 
@@ -76,7 +95,7 @@ console.log(person1, person2);
 
 ## Operators
 
-* Arithmetic: `+`, `-`, `*`, `**`, `/`, `%` and increment (`++`) and decrement (`--`)
+* Arithmetic: `+`, `-`, `*`, `**`, `/`, `%` and increment (`++`) and decrement (`--`)  and augmented assignment like `+=`
 * Assignment: `const name = 'Peter';` and shorthands like `num += 3`
 * Comparison: equality `==`, `===`, `!=`, `!==`  and relational `>`, `>=`, `<`, `<=`
 * Equality: `==` and `===`
