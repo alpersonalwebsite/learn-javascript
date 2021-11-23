@@ -197,6 +197,21 @@ console.log(kvArr);
 
 ## Cloning objects
 
+1. **Spread operator**
+
+```js
+const obj = {
+  name: 'Peter',
+  age: 33
+}
+
+const obj1 = { ...obj };
+console.log(obj1);
+// { name: 'Peter', age: 33 }
+```
+
+2. **Object.assign(object, baseObject)**
+
 ```js
 const obj = {
   name: 'Peter',
@@ -218,4 +233,29 @@ Object.assign({
 
 
 object.assign(previouslyCreatedObject, obj);
+```
+
+## Getters and Setters
+* Getters let us access properties of our objects
+* Setters let us modify properties
+
+```js
+const person = {
+  name: 'Peter',
+  age: 30,
+  get personData() {
+    return `${this.name} is ${this.age} old`
+  },
+  set newName(name) {
+    this.name = name;
+  }
+}
+
+console.log(person.personData);
+// 'Peter is 30 old'
+
+person.newName = 'Wendy';
+
+console.log(person.personData);
+// 'Wendy is 30 old'
 ```
