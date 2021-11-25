@@ -239,6 +239,8 @@ object.assign(previouslyCreatedObject, obj);
 * Getters let us access properties of our objects
 * Setters let us modify properties
 
+Both create read-only properties (*)
+
 ```js
 const person = {
   name: 'Peter',
@@ -259,3 +261,32 @@ person.newName = 'Wendy';
 console.log(person.personData);
 // 'Wendy is 30 old'
 ```
+
+(*) As you can see, personData() and newName() are `read-only`
+
+```js
+const person = {
+  name: 'Peter',
+  age: 30,
+  get personData() {
+    return `${this.name} is ${this.age} old`
+  },
+  set newName(name) {
+    this.name = name;
+  }
+}
+
+person.name = 'Paul';
+person.personData = 1;
+person.newName = 2;
+
+console.log(person);
+
+// {
+//   name: 2,
+//   age: 30,
+//   personData: [Getter],
+//   newName: [Setter]
+// }
+```
+
