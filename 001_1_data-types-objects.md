@@ -1,4 +1,6 @@
 # Objects
+It is a collection of `keys:values`
+
 We can see an object as the organized representation of "something".
 Objects in JS are dynamic... You can add and/or remove properties and methods in an existing object.
 
@@ -290,3 +292,99 @@ console.log(person);
 // }
 ```
 
+A similar example using a `Constructor function` and `Object.defineProperty()` (getters and setters)
+
+```js
+function Person(name) {
+  this.name = name;
+
+  Object.defineProperty(this, 'name', {
+    get() {
+      return name;
+    },
+    set(value) {
+      name = value;
+    }
+  });
+}
+
+const peter = new Person('Peter');
+
+console.log(peter);
+// Person { name: [Getter/Setter] }
+
+console.log(peter.name);
+// Peter
+
+peter.name = 'Paul';
+
+console.log(peter.name);
+// Paul
+```
+
+## Property descriptors
+
+We can use `Object.getOwnPropertyDescriptors(obj)` to get the `property descriptors` of a given object.
+
+```js
+function Person(name) {
+  this.name = name;
+}
+
+const peter = new Person("Peter");
+
+Object.getOwnPropertyDescriptors(peter);
+
+// {
+//   name: {
+//     value: 'Peter',
+//     writable: true,
+//     enumerable: true,
+//     configurable: true
+//   }
+// }
+```
+
+Notes:
+1. `value` is the value associated with the property
+2. `writable` if the value can be changed
+3. `enumerable` if its showed during enumerations (like looping)
+4. `configurable` if we can delete the member or not
+
+We can use `Object.defineProperty()` to set the `property descriptors attributes`: 
+* value
+* writable
+* get
+* set
+* configurable
+* enumerable
+
+```js
+function Person(name) {
+  this.name = name;
+
+  Object.defineProperty(this, 'name', {
+    writable: false,
+    enumerable: false,
+    value: 'Mike',
+    configurable: false
+  });
+}
+
+let person = new Person('Peter');
+person.name = 'Paul';
+console.log(person.name);
+// Mike
+
+Object.keys(person);
+// []
+
+delete person.name;
+// false
+```
+
+In the previous example...
+1. We will not be able to change the value
+2. We will not be able to list the property name
+3. We will set Mike as the value
+4. We will not be able to delete the property
