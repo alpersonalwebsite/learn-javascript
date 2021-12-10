@@ -19,4 +19,4 @@ Looking back, I see several repetitions that are not strictly related to the top
 - [Currying](./004_1_currying.md)
 - [Scope](./005_0_scope.md)
 - [This](./005_1_this.md)
-- [Closures](./006_0_closures.md)
+- [Closures](./007_0_closures.md)
