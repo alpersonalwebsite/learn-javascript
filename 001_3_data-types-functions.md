@@ -1,5 +1,10 @@
 # Functions
-Functions are objects
+In JS functions are First-class functions because they are treated as any other variable.
+Remember that functions are objects.
+
+1. We can assign a function to a variable
+2. We can pass a function as an argument
+3. A function can return a function
 
 <!-- 
 Everything related to a function
@@ -33,7 +38,7 @@ Hello
 Hi
 -->
 
-
+When we call a function the first thing that happens is that a new `execution context` is created with a `thread of execution` (line by line) and a space in memory for storage. Whatever we store in memory in this local scope (aka, the context of the function) will be available JUST inside this context.
 
 ## Function declaration
 
@@ -57,7 +62,9 @@ sayHi(); // Hi
 
 The **main difference** between `function declaration` and `function expression` is that `WE CAN` call the `function` defined with `function declaration` before its definition.
 
-This is because JS engine moves all the `function declaration` to the top. This is called `hoisting`
+This is because JS engine moves all the `function declarations` to the top. This is called `hoisting`.
+
+You can see how `sayHi()` is hoisted.
 
 ```js
 sayHi(); // Hi
@@ -99,11 +106,9 @@ console.log(peter);
 // }
 ```
 
-
-
 ## TODO: Add call, apply and bind
 
-## Function and default values
+## Functions and default values
 
 ```js
 function sayHi(name = 'user') {
@@ -175,8 +180,8 @@ printNames('Peter', 'Paul', 'Lora');
 Remember the difference between `parameters` and `arguments`
 
 In the example...
-1. color is a parameter of the function printColor()
-2. black is an argument
+1. `color` is a `parameter` of the function printColor()
+2. `black` is an `argument`
 
 ```js
 function printColor(color) {
@@ -185,3 +190,30 @@ function printColor(color) {
 
 printColor('black');
 ```
+
+## HOF (Higher Order Functions)
+A function that takes a function as argument or returns a function and can be assigned as a value to a variable. 
+
+More info: https://developer.mozilla.org/en-US/docs/Glossary/First-class_Function
+
+```js
+function performMathOperation(num1, num2, operation) {
+  return operation(num1, num2);
+}
+
+function addition(num1, num2) {
+  return num1 + num2;
+}
+
+function subtraction(num1, num2) {
+  return num1 - num2;
+}
+
+const add = performMathOperation(1, 1, addition);
+console.log(add); // 2
+
+const subtract = performMathOperation(1, 1, subtraction);
+console.log(subtract); // 0
+```
+
+Note: In the previous example `performMathOperation()` is a HOF and `addition()` is a callback function.
