@@ -278,7 +278,7 @@ Output:
 }
 ```
 
-### Promise.resolve and Promise.reject
+### Promise.resolve() and Promise.reject()
 
 **Promise.resolve(value)**
 ```js
@@ -298,4 +298,104 @@ const user = Promise.reject(new Error('Something went wrong!'));
 user.catch(error => console.log(error));
 ```
 
+### Promise.all(arrayOfPromises)
+
+The Promise.all() method takes an iterable of promises as an input, and returns a single Promise that resolves to an array of the results of the input promises.
+This returned promise will resolve when all of the input's promises have resolved, or if the input iterable contains no promises. It rejects immediately upon any of the input promises rejecting or non-promises throwing an error, and will reject with this first rejection message / error.
+More info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1);
+  }, 1000);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(2);
+  }, 1000);
+});
+
+Promise.all([promise1, promise2])
+  .then(values => {
+  console.log(values);
+  })
+  .catch(err => console.log(err));
+```
+
+Output:
+```
+[ 1, 2 ]
+```
+
+### Promise.race()
+The Promise.race() method returns a promise that fulfills or rejects as soon as one of the promises in an iterable fulfills or rejects, with the value or reason from that promise.
+More info: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/race
+
+```js
+const promise1 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(1);
+  }, 1000);
+});
+
+const promise2 = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve(2);
+  }, 1000);
+});
+
+Promise.race([promise1, promise2])
+  .then(values => {
+  console.log(values);
+  })
+  .catch(err => console.log(err));
+```
+
+Output:
+```
+1
+```
+
 ## Async/Await
+We write async code that looks like sync code
+
+```js
+function getUser(id) {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve({ id, username: 'Peter' });
+      }, 3000);
+  });
+}
+
+function getHobbiesForUser(userId) {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(['reading', 'writing']);
+      }, 3000);
+  });
+}
+
+function getExpensesForHobby(hobby) {
+  return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        resolve(10);
+      }, 3000);
+  });
+}
+
+async function logUserHobbies() {
+  const user = await getUser(10);
+  const userHobbies = await getHobbiesForUser(user.id);
+  console.log(userHobbies);
+}
+
+logUserHobbies();
+```
+
+Output:
+```
+[ 'reading', 'writing' ]
+```
