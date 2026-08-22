@@ -203,6 +203,7 @@ people.sort(sortNamesASC);
 If you want to do it in `DESC` order switch...
 
 ```js
+// check: fragment
   if (nameA < nameB) return 1;
   if (nameA > nameB) return -1;
 ```

@@ -77,6 +77,7 @@ globalVariable value is 1
 You can see the difference in the following example:
 
 ```javascript
+// check: continues
 function someFunction() {
   for (var varVariable = 0; varVariable < 5; varVariable++) {
     // some logic
@@ -288,6 +289,7 @@ undefined - global or window
 
 Example: invalid constructor
 ```javascript
+// check: throws TypeError
 const Person = name => {
   this.name = name;
 }

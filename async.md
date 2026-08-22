@@ -12,6 +12,7 @@ Web APIs: https://developer.mozilla.org/en-US/docs/Web/API
 For example, `setTimeout()`
 
 ```js
+// check: slow
 function firstOperation() {
   console.log(`Operation 1`);
 }
@@ -61,6 +62,7 @@ Output:
 ### Callback hell
 
 ```js
+// check: slow
 function getUser(id, callback) {
   setTimeout(() => {
     callback({ id, username: 'Peter' });
@@ -105,6 +107,7 @@ Output:
 **Fixing Callback Hell with Named Functions**
 
 ```js
+// check: slow
 function getUser(id, callback) {
   setTimeout(() => {
     callback({ id, username: 'Peter' });
@@ -212,6 +215,7 @@ Error: 'Something went wrong!'
 
 Cross pattern example:
 ```js
+// check: slow
 function getUser(id) {
   return new Promise((resolve, reject) => {
       setTimeout(() => {
@@ -362,6 +366,7 @@ Output:
 We write async code that looks like sync code
 
 ```js
+// check: slow
 function getUser(id) {
   return new Promise((resolve, reject) => {
       setTimeout(() => {

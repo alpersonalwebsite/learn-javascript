@@ -28,6 +28,7 @@ We should use const for values that should not change (constants).
 Let's jump to a quick example to see this in action.
 
 ```js
+// check: continues
 function hoistingExample(name) {
   if (name) {
     var x = name;
@@ -52,6 +53,7 @@ The variable declared with the `var` keyword is hoisted, or, raised to the top o
 So, under the hood, this is what the interpreter is doing...
 
 ```js
+// check: continues
 function hoistingExample(name) {
   var x;  
   if (name) {
@@ -70,6 +72,7 @@ hoistingExample('Peter');
 But, what happens if we don't pass any argument.
 
 ```js
+// check: continues
 hoistingExample();
 ```
 
@@ -111,6 +114,7 @@ hoistingExample('Peter'); // Peter
 **var and global scope**
 
 ```js
+// check: browser
 var name1 = 'Peter';
 let name2 = 'Paul';
 

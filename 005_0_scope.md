@@ -16,6 +16,7 @@ logName(name); // Peter
 This constant is declared in a `local or block scope` and can be accessible only inside `logName()`
 
 ```js
+// check: continues
 const logName = () => {
   const name = 'Peter';
   console.log(name)
