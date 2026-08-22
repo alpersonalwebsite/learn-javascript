@@ -1,0 +1,31 @@
+# The repository had none. These notes have you paste and run samples locally, and the checker
+# writes nothing outside a temp directory, so most of this is about what a reader's own scratch
+# work leaves behind rather than about anything this repo produces.
+
+node_modules/
+
+# Credentials and secrets. Both env globs are listed because neither implies the other:
+# `.env*` is a prefix glob and catches .env, .envrc and .env.local, while `*.env` is a suffix glob and
+# catches audit.env or production.env, which the prefix form does not match.
+.env*
+*.env
+credentials*
+secrets/
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Scratch files from trying the samples out.
+*.log
+npm-debug.log*
+scratch/
+tmp/
+
+# Editor and OS noise.
+.idea/
+.vscode/
+.DS_Store
+__pycache__/
+*.sqlite
+*.db
