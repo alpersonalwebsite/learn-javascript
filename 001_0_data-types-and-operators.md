@@ -54,7 +54,7 @@ console.log(stringLiteral);
 // literal something
 
 console.log(templateLiteral);
-template 
+// template 
 // literal something
 ```
 
