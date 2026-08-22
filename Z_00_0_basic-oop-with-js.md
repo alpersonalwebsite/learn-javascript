@@ -63,6 +63,7 @@ console.log(mySubObj.name);
 ... and we can check if `myObj` is the prototype of `mySubObj`
 
 ```js
+// check: continues
 console.log(Object.getPrototypeOf(mySubObj) === myObj)
 // true
 ```
@@ -276,6 +277,7 @@ A few notes before jumping to the next topic:
 
 1. You can take advantage of named function to improve your debugging work (instead of anonymous functions). Here will not have much sense, but when you are going through stack traces it could make thing clearer and easier to understand or debug.
 ```js
+// check: continues
 myObj.someMethod = function theFunctionName() {
   return 'Hi!'
 }
@@ -283,6 +285,7 @@ myObj.someMethod = function theFunctionName() {
 
 2. Feel free to use **ES2015**
 ```js
+// check: continues
 myObj.someMethod = () => {
   return 'Hi!'
 }
@@ -290,6 +293,7 @@ myObj.someMethod = () => {
 
 3. Since we are just returning, if you want to have a "cleaner" code you can do:
 ```js
+// check: continues
 myObj.someMethod = () => 'Hi!'
 ```
 
@@ -316,6 +320,7 @@ Let's see some examples to illustrate the previous statements. They will also he
 1. `var` holding a `primitive` value and a `function updating` (or mutating) the value of that variable
 
 ```js
+// check: browser
 var primitive = 123
 
 function updt(n) {
@@ -336,6 +341,7 @@ When we use `var`, the scope is going to be global/window or the function within
 If we add the `var statement` inside the function we will have a totally different result, since now, we have 2 primitive variables, one scoped to the global object (in the browser, `window`) and the other to the function `updt`
 
 ```js
+// check: browser
 var primitive = 123
 
 function updt(n) {
@@ -411,6 +417,7 @@ console.log(primitive)
 As you probably guessed, for everything inside the "`if` scope" the value of `primitive` is going to be `456`. For the rest, it will be `123`. We are going to obtain "similar" results with `const`, with the difference that once declared and assigned the value, we won't be able to mutate it. 
 
 ```js
+// check: throws TypeError
 if(1) {
   const primitive = 456
   primitive = 789
@@ -423,6 +430,7 @@ Result: `TypeError: Assignment to constant variable.`
 One more thing to remember... Global constants (`let` and `const`) do not become properties of the window object, unlike var variables.
 
 ```js
+// check: browser
 var global = 1
 let notGlobal0 = 2
 const notGlobal1 = 3
@@ -477,6 +485,7 @@ Yes... Technically, we are not changing its value if not altering one of its pro
 This **reassigns the values** and produces the expected ERROR
 
 ```js
+// check: throws TypeError
 const numbers = [1,2,3]
 numbers = [1,2,3,4]
 
@@ -591,6 +600,7 @@ This is because comparisons between objects is by `reference` (not value), and, 
 What happens if we convert into strings both object before comparing them...
 
 ```js
+// check: continues
 console.log(JSON.stringify(peter1) === JSON.stringify(peter2))
 // true 
 ```

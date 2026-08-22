@@ -169,6 +169,7 @@ Alternatively, we can...
 1. Get ALL the keys of an object with the method `Object.keys(obj)`
 
 ```js
+// check: continues
 const keys = Object.keys(obj);
 for (key of keys) {
   console.log(key);
@@ -180,6 +181,7 @@ for (key of keys) {
 2. Get ALL the values of an object with the method `Object.values(obj)`
 
 ```js
+// check: continues
 const values = Object.values(obj);
 for (let value of values) {
   console.log(value);
@@ -191,6 +193,7 @@ for (let value of values) {
 3. Get ALL key:value pairs in an object
 
 ```js
+// check: continues
 const kvArr = Object.entries(obj);
 console.log(kvArr);
 
@@ -229,6 +232,7 @@ console.log(obj1);
 *Note*: We can pass an existing object or add properties to the object we are passing to Object.assign()
 
 ```js
+// check: continues
 Object.assign({
   hobbies: []
 }, obj);

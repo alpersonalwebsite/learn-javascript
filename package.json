@@ -1,0 +1,13 @@
+{
+  "name": "learn-javascript-notes",
+  "version": "1.0.0",
+  "description": "Tooling for the JavaScript notes in this repository: runs the samples and verifies the output they claim.",
+  "private": true,
+  "scripts": {
+    "check": "npm run check-samples && npm run check-links",
+    "check-samples": "node scripts/check-samples.mjs",
+    "check-links": "node scripts/check-links.mjs",
+    "list-samples": "node scripts/check-samples.mjs --list"
+  },
+  "license": "MIT"
+}

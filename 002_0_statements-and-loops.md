@@ -15,6 +15,7 @@ while
 ### if... else
 
 ```js
+// check: fragment
 if (condition) {
   // ...
 } else if (anotherCondition) {
@@ -27,6 +28,7 @@ if (condition) {
 ### switch... case
 
 ```js
+// check: fragment
 switch (somethingToCompare) {
   case 'againstSomething': 
     // ...
@@ -48,6 +50,7 @@ Remember to have always an exit condition to avoid entering into an `infinite lo
 ### while
 
 ```js
+// check: fragment
 while (condition) {
   // ...
 }
@@ -72,6 +75,7 @@ while (i < 4) {
 First executes and then evaluates condition. So, the statement is executed at least once.
 
 ```js
+// check: fragment
 do {
   // ...
 } while (condition);
@@ -80,6 +84,7 @@ do {
 ### for
 
 ```js
+// check: fragment
 for (initialExpression; condition; incrementOrDecrement) {
   // ...
 }
