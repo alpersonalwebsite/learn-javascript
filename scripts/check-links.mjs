@@ -13,7 +13,7 @@
 // comparison aborting rather than reporting success if the two lists could not be aligned, since a
 // zip over an empty response is how a verification passes vacuously.
 //
-// Three cases from that run are worth keeping in mind, and are pinned in SLUG_CASES below:
+// Cases from that run worth keeping in mind, all pinned in SLUG_CASES below:
 //
 //   'Arrow functions & this'  ->  arrow-functions--this      TWO hyphens
 //   'Salt, hash and compare'  ->  salt-hash-and-compare      ONE hyphen
@@ -24,6 +24,23 @@
 // the comma in `Salt,` has none before it, so one space produces one hyphen. Getting this backwards
 // is how a plausible-looking slugger emits anchors that all resolve except the handful nobody
 // checks.
+//
+// WHITESPACE, and the order of operations, which this file had wrong. GitHub trims the heading text
+// once, up front, and never again, so a LEADING character that gets deleted leaves its space behind
+// and that space becomes a hyphen, while trailing whitespace in the source is gone before slugging
+// starts. Measured against the renderer:
+//
+//   '\u2705 Done and dusted'    ->  -done-and-dusted        LEADING hyphen
+//   '& leading ampersand'      ->  -leading-ampersand      not emoji-specific: any deleted char
+//   'Trailing space '          ->  trailing-space          no trailing hyphen
+//
+// Trimming AFTER the deletion (what this file used to do) loses the first two. Not trimming at all
+// breaks the third. Trimming first and only once is the rule, and it took measuring all three to see
+// that the bug and its naive fix were both wrong.
+//
+// This mattered nowhere in this repository: 0 of its 106 headings change either way, since none
+// begins with a character that gets deleted. It is fixed because the next one might, and because a
+// slugger that is right by luck reports a false break the day the luck runs out.
 //
 // The self-check is offline on purpose. A checker that needs the network is one that stops being
 // run, which is the same failure as needing a database.
@@ -36,17 +53,23 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 
 const slug = (heading) =>
   heading
+    // Trim FIRST, because markdown itself trims a heading's text before anything else sees it, and
+    // then never again. The order is the whole subtlety and it was wrong here: see WHITESPACE below.
+    .trim()
     .replace(/`/g, '')
     // Link text inside a heading: keep the text, drop the target.
     .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1')
     .toLowerCase()
     .replace(/[^\p{L}\p{N} _-]/gu, '')
-    .trim()
     .replace(/ /g, '-')
 
 // Pinned against GitHub's renderer (see above). If slug() ever drifts, this fails loudly here
 // rather than producing a file full of plausible wrong anchors.
 const SLUG_CASES = [
+  // Whitespace and the order of operations. All three verified against GitHub's renderer.
+  ['\u2705 Done and dusted', '-done-and-dusted'],
+  ['& leading ampersand', '-leading-ampersand'],
+  ['Trailing space ', 'trailing-space'],
   ['Data Types and Operators', 'data-types-and-operators'],
   ['Primitives or value types', 'primitives-or-value-types'],
   ['Arrow functions & this', 'arrow-functions--this'],
