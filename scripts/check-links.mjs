@@ -70,6 +70,11 @@ const SLUG_CASES = [
   ['\u2705 Done and dusted', '-done-and-dusted'],
   ['& leading ampersand', '-leading-ampersand'],
   ['Trailing space ', 'trailing-space'],
+  // ...and the TRAILING direction, which the three above do not cover. A slugger that strips only
+  // the end after deleting characters satisfies every leading case and still emits the wrong
+  // anchor here, exiting 0 while being wrong. Measured: both of these keep their hyphen.
+  ['Done and dusted \u2705', 'done-and-dusted-'],
+  ['trailing ampersand &', 'trailing-ampersand-'],
   ['Data Types and Operators', 'data-types-and-operators'],
   ['Primitives or value types', 'primitives-or-value-types'],
   ['Arrow functions & this', 'arrow-functions--this'],
@@ -107,6 +112,10 @@ for (const file of mdFiles) {
     const heading = /^#{1,6} +(.*)$/.exec(line)
     if (heading) {
       const base = slug(heading[1])
+      // GitHub emits NO anchor element for a heading that slugs to nothing: measured, `## ` followed
+      // by a lone checkmark produces a heading with no id at all. Registering '' as an available
+      // anchor would therefore claim a target that does not exist.
+      if (base === '') continue
       const n = seen.get(base) ?? 0
       seen.set(base, n + 1)
       // GitHub appends -1, -2 to repeats, per document.
